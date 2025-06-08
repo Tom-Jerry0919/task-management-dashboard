@@ -785,7 +785,7 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     .main-header {
         padding: 0 15px;
     }
