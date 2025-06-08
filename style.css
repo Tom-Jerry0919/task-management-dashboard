@@ -802,20 +802,3 @@ body {
         padding: 20px 15px;
     }
 }
-@media (min-width: 375px) {
-    .main-header {
-        padding: 0 25px;
-    }
-
-    .search-bar {
-        width: 300px;
-    }
-
-    .content-wrapper {
-        padding: 25px;
-    }
-
-    .modal-content {
-        padding: 25px;
-    }
-}
