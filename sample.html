@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Task Management Dashboard<i class="fa-solid fa-bars-progress"></i></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-tasks"></i>
+                <h1>TaskFlow</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                    <li><a href="#"><i class="fas fa-chart-pie"></i> Reports</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="projects-section">
+                <div class="projects-header">
+                    <h3>Projects</h3>
+                    <button id="add-project-btn"><i class="fas fa-plus"></i></button>
+                </div>
+                <ul class="projects-list" id="projects-list">
+                    <!-- Projects will be added here dynamically -->
+                </ul>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">JD</div>
+                <div class="user-info">
+                    <span class="username">John Doe</span>
+                    <span class="user-email">vasa@example.com</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search tasks...">
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="quick-add-btn" id="quick-add-task">
+                        <i class="fas fa-plus"></i> Add Task
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="board-header">
+                    <h2 id="current-project-title">My Tasks</h2>
+                    <div class="view-options">
+                        <button class="view-option active" data-view="board"><i class="fas fa-th-large"></i> Board</button>
+                        <button class="view-option" data-view="list"><i class="fas fa-list"></i> List</button>
+                        <button class="view-option" data-view="calendar"><i class="fas fa-calendar-alt"></i> Calendar</button>
+                    </div>
+                </div>
+
+                <!-- Task Board -->
+                <div class="task-board" id="task-board">
+                    <!-- Columns will be added here dynamically -->
+                </div>
+
+                <!-- Task List View (hidden by default) -->
+                <div class="task-list-view" id="task-list-view" style="display: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-list-body">
+                            <!-- Tasks will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="project-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Add New Project</h3>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-color">Color</label>
+                    <select id="project-color">
+                        <option value="#4f6bed">Blue</option>
+                        <option value="#e54d2e">Red</option>
+                        <option value="#30a46c">Green</option>
+                        <option value="#f76808">Orange</option>
+                        <option value="#8e4ec6">Purple</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Create Project</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="task-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="task-modal-title">Add New Task</h3>
+            <form id="task-form">
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-due-date">Due Date</label>
+                        <input type="date" id="task-due-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="task-status">Status</label>
+                    <select id="task-status">
+                        <option value="todo">To Do</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="review">Review</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
+                <div class="form-group" id="project-select-container">
+                    <label for="task-project">Project</label>
+                    <select id="task-project">
+                        <!-- Projects will be added here dynamically -->
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn" id="task-submit-btn">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
